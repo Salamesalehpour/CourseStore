@@ -10,6 +10,7 @@ namespace CourseStore.Infra.Data.Sql
         public static CourseStoreContext SqlServerCourseStoreContext()
         {
             var builder = new DbContextOptionsBuilder<CourseStoreContext>();
+
             builder.UseSqlServer("Server=.; Database=CourseStore; Integrated Security= true;")
                 .LogTo(Console.WriteLine, LogLevel.Information);
 
