@@ -1,4 +1,5 @@
-﻿using CourseStore.Infra.Data.Sql;
+﻿using CourseStore.Core.Domain;
+using CourseStore.Infra.Data.Sql;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -11,19 +12,13 @@ namespace CourseStore.Endpoints.CourseConsole
         {
             var ctx = ContextFactory.SqlServerCourseStoreContext();
 
-            //var teachers = ctx.Teachers.OrderBy(t => t.FullName).Where(t => t.FirstName.Contains("reza")).ToList();
+            var course = new Course { Title = "Java", Price = 100, Description = "Java for .Net Developers" };
 
-            var course = ctx.Courses.FirstOrDefault();
+            ctx.Courses.Add(course);
 
             Console.WriteLine(ctx.ChangeTracker.DebugView.LongView);
 
-            //course.Title = "Java";
-
-            ctx.Entry(course).Property(c => c.Title).CurrentValue = "Java";
-
-            Console.WriteLine("-----------------------------------");
-
-            //ctx.ChangeTracker.DetectChanges();
+            ctx.SaveChanges();
 
             Console.WriteLine(ctx.ChangeTracker.DebugView.LongView);
 
