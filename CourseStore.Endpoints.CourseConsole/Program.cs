@@ -2,6 +2,7 @@
 using CourseStore.Infra.Data.Sql;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CourseStore.Endpoints.CourseConsole
@@ -10,17 +11,27 @@ namespace CourseStore.Endpoints.CourseConsole
     {
         static void Main(string[] args)
         {
-            var ctx = ContextFactory.SqlServerCourseStoreContext();
+            var context = ContextFactory.SqlServerCourseStoreContext();
 
-            //Soft Delete
+            var employee = new Employee
+            {
+                Name = "Salam",
+                Employees = new List<Employee>
+                {
+                    new Employee
+                    {
+                        Name = "Zenver"
+                    },
+                    new Employee
+                    {
+                        Name = "Barin"
+                    }
+                }
+            };
 
-            var course = ctx.Courses.SingleOrDefault(c => c.Id == 2);
+            context.Employees.Add(employee);
 
-            course.IsDeleted = true;
-
-            ctx.SaveChanges();
-
-            var courses = ctx.Courses.IgnoreQueryFilters().ToList();
+            context.SaveChanges();
 
             Console.WriteLine("Hello World!");
         }
