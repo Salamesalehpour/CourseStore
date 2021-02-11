@@ -16,5 +16,12 @@ namespace CourseStore.Infra.Data.Sql
         public DbSet<Course> Courses { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Tag> Tags { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Course>().HasQueryFilter(c => c.IsDeleted == false);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

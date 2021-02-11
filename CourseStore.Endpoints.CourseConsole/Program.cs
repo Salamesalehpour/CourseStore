@@ -12,15 +12,15 @@ namespace CourseStore.Endpoints.CourseConsole
         {
             var ctx = ContextFactory.SqlServerCourseStoreContext();
 
-            var course = new Course { Title = "Java", Price = 100, Description = "Java for .Net Developers" };
+            //Soft Delete
 
-            ctx.Courses.Add(course);
+            var course = ctx.Courses.SingleOrDefault(c => c.Id == 2);
 
-            Console.WriteLine(ctx.ChangeTracker.DebugView.LongView);
+            course.IsDeleted = true;
 
             ctx.SaveChanges();
 
-            Console.WriteLine(ctx.ChangeTracker.DebugView.LongView);
+            var courses = ctx.Courses.IgnoreQueryFilters().ToList();
 
             Console.WriteLine("Hello World!");
         }
