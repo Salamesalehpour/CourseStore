@@ -13,25 +13,14 @@ namespace CourseStore.Endpoints.CourseConsole
         {
             var context = ContextFactory.SqlServerCourseStoreContext();
 
-            var employee = new Employee
-            {
-                Name = "Salam",
-                Employees = new List<Employee>
-                {
-                    new Employee
-                    {
-                        Name = "Zenver"
-                    },
-                    new Employee
-                    {
-                        Name = "Barin"
-                    }
-                }
-            };
+            QueryRepository.AddToParent();
 
-            context.Employees.Add(employee);
+            var parentQuery = context.Parents.Include(p => p.Child1s).Include(p => p.Child2s).Include(p => p.Child3s).AsQueryable();
 
-            context.SaveChanges();
+            var parentQueryString = parentQuery.ToQueryString();
+
+            var res = parentQuery.ToList();
+
 
             Console.WriteLine("Hello World!");
         }

@@ -11,7 +11,7 @@ namespace CourseStore.Infra.Data.Sql
         {
             var builder = new DbContextOptionsBuilder<CourseStoreContext>();
 
-            builder.UseSqlServer("Server=.; Database=CourseStore; Integrated Security= true;")
+            builder.UseSqlServer("Server=.; Database=CourseStore; Integrated Security= true;", c => c.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
                 .LogTo(Console.WriteLine, LogLevel.Information);
 
             return new CourseStoreContext(builder.Options);

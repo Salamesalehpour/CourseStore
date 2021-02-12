@@ -17,6 +17,8 @@ namespace CourseStore.Infra.Data.Sql
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Parent> Parents { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

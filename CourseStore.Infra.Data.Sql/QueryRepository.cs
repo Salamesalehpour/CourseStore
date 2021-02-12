@@ -10,6 +10,29 @@ namespace CourseStore.Infra.Data.Sql
 {
     public class QueryRepository
     {
+
+        public static void AddToParent()
+        {
+            var context = ContextFactory.SqlServerCourseStoreContext();
+
+            var parent = new Parent { Name = "Salam" };
+
+            parent.Child1s = new List<Child1>();
+            parent.Child2s = new List<Child2>();
+            parent.Child3s = new List<Child3>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                parent.Child1s.Add(new Child1 { Name = $"Name {i}" });
+                parent.Child2s.Add(new Child2 { Name = $"Name {i}" });
+                parent.Child3s.Add(new Child3 { Name = $"Name {i}" });
+            }
+
+            context.Parents.Add(parent);
+
+            context.SaveChanges();
+        }
+
         public static void EagerLoadingSample()
         {
             var ctx = ContextFactory.SqlServerCourseStoreContext();
